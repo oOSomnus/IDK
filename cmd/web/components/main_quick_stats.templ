@@ -1,0 +1,29 @@
+package components
+
+type QuickStats struct {
+	Active      int
+	Completed   int
+	In_Progress int
+	Overdue     int
+}
+
+templ MainQuickStats(q QuickStats) {
+	<div class="grid grid-cols-2 gap-3">
+		<div class="bg-neutral-800 rounded-lg p-3">
+			<p class="text-neutral-400 text-xs">Active Features</p>
+			<p class="text-neutral-100 text-xl font-semibold">{ q.Active }</p>
+		</div>
+		<div class="bg-neutral-800 rounded-lg p-3">
+			<p class="text-neutral-400 text-xs">Completed</p>
+			<p class="text-neutral-100 text-xl font-semibold">{ q.Completed }</p>
+		</div>
+		<div class="bg-neutral-800 rounded-lg p-3">
+			<p class="text-neutral-400 text-xs">In Progress</p>
+			<p class="text-neutral-100 text-xl font-semibold">{ q.In_Progress }</p>
+		</div>
+		<div class="bg-neutral-800 rounded-lg p-3">
+			<p class="text-neutral-400 text-xs">Overdue</p>
+			<p class="text-neutral-100 text-xl font-semibold">{ q.Overdue }</p>
+		</div>
+	</div>
+}

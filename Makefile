@@ -58,4 +58,10 @@ watch:
             fi; \
         fi
 
-.PHONY: all build run test clean watch tailwind-install templ-install
+format:
+	@echo "Formatting all ..."
+	@go fmt ./...
+	@goimports -w .
+	@templ fmt .
+
+.PHONY: all build run test clean watch tailwind-install templ-install format

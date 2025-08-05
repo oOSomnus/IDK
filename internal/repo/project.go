@@ -18,7 +18,7 @@ type projectRepo struct {
 	db *gorm.DB
 }
 
-func New(db *gorm.DB) ProjectRepository {
+func NewProjectRepo(db *gorm.DB) ProjectRepository {
 	return &projectRepo{db: db}
 }
 
