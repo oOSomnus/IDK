@@ -1,0 +1,55 @@
+package components
+
+import "fmt"
+
+type Project struct {
+	Title       string
+	Description string
+	Status      string
+	DueDate     string
+	TeamMembers int
+	Progress    int
+}
+
+// ProjectList 渲染项目列表
+templ ProjectList(projects []Project) {
+	<div id="projects-list" class="space-y-4">
+		for _, item := range projects {
+			@MainProjectItem(
+				item.Title,
+				item.Description,
+				item.Status,
+				item.DueDate,
+				item.TeamMembers,
+				item.Progress,
+			)
+		}
+	</div>
+}
+
+templ MainProjectItem(title, description, status, dueDate string, teamMembers int, progress int) {
+	<div
+		class="transition-all duration-300 hover:bg-neutral-800 hover:translate-x-1 p-4 bg-neutral-800/50 rounded-lg border border-neutral-700/50"
+	>
+		<div class="flex justify-between items-start">
+			<div>
+				<h3 class="text-lg font-medium text-neutral-100">{ title }</h3>
+				<p class="text-neutral-400 text-sm mt-1">{ description }</p>
+			</div>
+			<span class="bg-primary text-accent text-xs px-2 py-1 rounded-full">{ status }</span>
+		</div>
+		<div class="mt-3 flex items-center justify-between">
+			<div class="flex items-center gap-3">
+				<span class="text-neutral-500 text-xs flex items-center gap-1">
+					<i class="fa fa-calendar"></i> Due: { dueDate }
+				</span>
+				<span class="text-neutral-500 text-xs flex items-center gap-1">
+					<i class="fa fa-user"></i> { teamMembers } team members
+				</span>
+			</div>
+			<div class="w-24 h-1.5 bg-neutral-700 rounded-full overflow-hidden">
+				<div class="h-full bg-accent rounded-full" style={ "width: " + fmt.Sprintf(" %d%%", progress) }></div>
+			</div>
+		</div>
+	</div>
+}
