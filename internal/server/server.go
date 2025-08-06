@@ -13,6 +13,7 @@ import (
 	"I_Dev_Kit/internal/database"
 	"I_Dev_Kit/internal/repo"
 	"I_Dev_Kit/internal/usecase/feature"
+	"I_Dev_Kit/internal/usecase/project"
 	"I_Dev_Kit/pkg/logger"
 )
 
@@ -27,8 +28,10 @@ type Server struct {
 func initControllers(db database.Service) *v1.V1 {
 	l := logger.New("debug")
 	featureRepo := repo.NewFeatureRepo(db.DB())
-	uf := feature.New(featureRepo)
-	v := v1.New(uf, l)
+	projectRepo := repo.NewProjectRepo(db.DB())
+	p := project.New(projectRepo)
+	f := feature.New(featureRepo)
+	v := v1.New(p, f, l)
 	return v
 }
 

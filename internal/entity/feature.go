@@ -23,5 +23,5 @@ const (
 	FeatureStateInProgress FeatureState = "in_progress"
 	FeatureStateCompleted  FeatureState = "completed"
 	FeatureStateCancelled  FeatureState = "cancelled"
-	FeatureStateCreated    FeatureState = "created"
+	FeatureStatePlanned    FeatureState = "planned"
 )

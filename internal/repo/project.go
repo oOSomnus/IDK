@@ -12,6 +12,7 @@ type ProjectRepository interface {
 	FindAll() ([]entity.Project, error)
 	Update(project *entity.Project) error
 	Delete(id int64) error
+	GetByPage(page int) ([]entity.Project, error)
 }
 
 type projectRepo struct {
@@ -48,6 +49,11 @@ func (r *projectRepo) Update(project *entity.Project) error {
 }
 
 func (r *projectRepo) Delete(id int64) error {
-	// 永久删除并级联
 	return r.db.Unscoped().Delete(&entity.Project{ID: id}).Error
+}
+
+func (r *projectRepo) GetByPage(page int) ([]entity.Project, error) {
+	var projects []entity.Project
+	result := r.db.Order("updated_at DESC").Limit(10).Offset((page - 1) * 10).Find(&projects)
+	return projects, result.Error
 }

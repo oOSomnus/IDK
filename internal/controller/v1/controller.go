@@ -9,15 +9,15 @@ import (
 
 // V1 -.
 type V1 struct {
-	// p usecase.Project
+	p usecase.Project
 	f usecase.Feature
 	l logger.Interface
 	v *validator.Validate
 }
 
-func New(f usecase.Feature, l logger.Interface) *V1 {
+func New(p usecase.Project, f usecase.Feature, l logger.Interface) *V1 {
 	return &V1{
-		// p: p,
+		p: p,
 		f: f,
 		l: l,
 		v: validator.New(),

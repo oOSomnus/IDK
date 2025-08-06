@@ -34,6 +34,7 @@ func (s *Server) RegisterRoutes() http.Handler {
 	r.Post("/hello", web.HelloWebHandler)
 	s.RegisterTimeRoutes(r)
 	s.RegisterFeatureRoutes(r)
+	s.RegisterProjectRoutes(r)
 	return r
 }
 
@@ -44,4 +45,8 @@ func (s *Server) RegisterTimeRoutes(r *chi.Mux) {
 
 func (s *Server) RegisterFeatureRoutes(r *chi.Mux) {
 	r.Get("/api/quick-stats", s.v.GetStats)
+}
+
+func (s *Server) RegisterProjectRoutes(r *chi.Mux) {
+	r.Get("/api/projects", s.v.GetProjectList)
 }

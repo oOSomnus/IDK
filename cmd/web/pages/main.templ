@@ -83,7 +83,6 @@ templ MainPage() {
 							<i class="fa fa-plus"></i> New Project
 						</button>
 					</div>
-					<!-- 搜索框使用htmx实现搜索功能 -->
 					<div class="relative mb-7">
 						<input
 							type="text"
@@ -106,18 +105,6 @@ templ MainPage() {
 					>
 						<!-- 加载状态 - 初始显示 -->
 						<div id="loading" class="text-center py-8">loading...</div>
-					</div>
-					<!-- 加载更多按钮 -->
-					<div class="mt-7 text-center">
-						<button
-							class="bg-neutral-800 hover:bg-neutral-700 text-neutral-300 px-6 py-2 rounded-lg text-sm font-medium transition-colors duration-300"
-							hx-get="/more-projects"
-							hx-trigger="click"
-							hx-target="#projects-list"
-							hx-swap="beforeend"
-						>
-							Load More Projects
-						</button>
 					</div>
 				</div>
 			</div>
