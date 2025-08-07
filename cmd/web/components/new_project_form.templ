@@ -1,0 +1,134 @@
+package components
+
+templ NewProjectForm() {
+	<div class="bg-neutral-900 rounded-xl w-full max-w-2xl mx-4 shadow-xl border border-neutral-800 overflow-hidden">
+		<div class="p-6 border-b border-neutral-800 flex justify-between items-center">
+			<h3 class="text-xl font-semibold text-neutral-100">Create New Project</h3>
+			<button
+				class="text-neutral-400 hover:text-neutral-100 transition-colors"
+				hx-on="click: document.getElementById('project-modal').classList.add('hidden')"
+			>
+				<i class="fa fa-times"></i>
+			</button>
+		</div>
+		<form
+			hx-post="/api/projects"
+			hx-target="#project-modal"
+			hx-swap="innerHTML"
+			hx-on::after-request="if (event.detail.successful) {
+				document.getElementById('project-modal').innerHTML='';
+				document.body.dispatchEvent(new Event('projectAdded'));
+			}"
+			class="p-6"
+		>
+			<div class="space-y-5">
+				<div>
+					<label for="title" class="block text-sm font-medium text-neutral-300 mb-1">Project Title *</label>
+					<input
+						type="text"
+						id="title"
+						name="title"
+						required
+						class="w-full bg-neutral-800 border border-neutral-700 rounded-lg py-3 px-4 text-neutral-100 focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all duration-300"
+						placeholder="Enter project title"
+					/>
+				</div>
+				<div>
+					<label for="url" class="block text-sm font-medium text-neutral-300 mb-1">Project URL</label>
+					<input
+						type="url"
+						id="url"
+						name="url"
+						class="w-full bg-neutral-800 border border-neutral-700 rounded-lg py-3 px-4 text-neutral-100 focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all duration-300"
+						placeholder="https://example.com/project"
+					/>
+				</div>
+				<div>
+					<label for="description" class="block text-sm font-medium text-neutral-300 mb-1">Description</label>
+					<textarea
+						id="description"
+						name="description"
+						rows="3"
+						class="w-full bg-neutral-800 border border-neutral-700 rounded-lg py-3 px-4 text-neutral-100 focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all duration-300"
+						placeholder="Enter project description"
+					></textarea>
+				</div>
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+					<div>
+						<label for="team_members" class="block text-sm font-medium text-neutral-300 mb-1">
+							Team
+							Members
+						</label>
+						<input
+							type="number"
+							id="team_members"
+							name="team_members"
+							min="1"
+							value="1"
+							class="w-full bg-neutral-800 border border-neutral-700 rounded-lg py-3 px-4 text-neutral-100 focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all duration-300"
+						/>
+					</div>
+					<div>
+						<label for="due_date" class="block text-sm font-medium text-neutral-300 mb-1">Due Date</label>
+						<input
+							type="date"
+							id="due_date"
+							name="due_date"
+							class="w-full bg-neutral-800 border border-neutral-700 rounded-lg py-3 px-4 text-neutral-100 focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all duration-300"
+						/>
+					</div>
+				</div>
+				<div>
+					<label for="state" class="block text-sm font-medium text-neutral-300 mb-1">Project State *</label>
+					<select
+						id="state"
+						name="state"
+						required
+						class="w-full bg-neutral-800 border border-neutral-700 rounded-lg py-3 px-4 text-neutral-100 focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all duration-300"
+					>
+						<option value="{{entity.ProjectStatePlanned}}">Planned</option>
+						<option value="{{entity.ProjectStatePending}}">Pending</option>
+						<option value="{{entity.ProjectStateInProgress}}" selected>In Progress</option>
+						<option value="{{entity.ProjectStateCompleted}}">Completed</option>
+						<option value="{{entity.ProjectStateCancelled}}">Cancelled</option>
+					</select>
+				</div>
+			</div>
+			<div class="mt-8 flex justify-end gap-3">
+				<button
+					type="button"
+					class="px-4 py-2 border border-neutral-700 rounded-lg text-neutral-300 hover:bg-neutral-800 transition-colors"
+					hx-on:click="const modal = document.getElementById('project-modal');
+					modal.innerHTML='';
+					modal.classList.add('hidden')"
+				>
+					Cancel
+				</button>
+				<button
+					type="submit"
+					class="px-4 py-2 bg-primary text-neutral-100 rounded-lg hover:bg-primary/90 transition-colors"
+				>
+					Create Project
+				</button>
+			</div>
+		</form>
+	</div>
+}
+
+templ ProjectCreatedSuccess() {
+	<div class="bg-neutral-900 rounded-xl w-full max-w-md mx-4 shadow-xl border border-neutral-800 overflow-hidden">
+		<div class="p-6 text-center">
+			<div class="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+				<i class="fa fa-check text-green-500 text-2xl"></i>
+			</div>
+			<h3 class="text-xl font-semibold text-neutral-100 mb-2">Project Created!</h3>
+			<p class="text-neutral-400 mb-6">Your new project has been successfully created.</p>
+			<button
+				class="px-4 py-2 bg-primary text-neutral-100 rounded-lg hover:bg-primary/90 transition-colors"
+				hx-on="click: document.getElementById('project-modal').classList.add('hidden')"
+			>
+				OK
+			</button>
+		</div>
+	</div>
+}

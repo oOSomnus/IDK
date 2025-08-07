@@ -35,6 +35,7 @@ func (s *Server) RegisterRoutes() http.Handler {
 	s.RegisterTimeRoutes(r)
 	s.RegisterFeatureRoutes(r)
 	s.RegisterProjectRoutes(r)
+	s.RegisterComponentsRoutes(r)
 	return r
 }
 
@@ -49,4 +50,8 @@ func (s *Server) RegisterFeatureRoutes(r *chi.Mux) {
 
 func (s *Server) RegisterProjectRoutes(r *chi.Mux) {
 	r.Get("/api/projects", s.v.GetProjectList)
+}
+
+func (s *Server) RegisterComponentsRoutes(r *chi.Mux) {
+	r.Get("/components/new-project-form", s.v.GetNewProjectForm)
 }

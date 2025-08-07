@@ -79,6 +79,15 @@ templ MainPage() {
 						<h2 class="text-xl font-semibold text-neutral-100">Your Projects</h2>
 						<button
 							class="bg-primary hover:bg-neutral-800 text-neutral-100 px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-300 flex items-center gap-2"
+							hx-get="/components/new-project-form"
+							hx-trigger="click"
+							hx-target="#project-modal"
+							hx-swap="innerHTML"
+							hx-on:click="const modal = document.getElementById('project-modal');
+        					if (modal) {
+            					modal.removeAttribute('hidden'); // 移除hidden属性
+            					modal.classList.remove('hidden'); // 移除CSS隐藏类
+        					}"
 						>
 							<i class="fa fa-plus"></i> New Project
 						</button>
@@ -99,7 +108,7 @@ templ MainPage() {
 					<div
 						id="projects-container"
 						hx-get="/api/projects"
-						hx-trigger="load"
+						hx-trigger="load, projectAdded from:body"
 						hx-target="#projects-container"
 						hx-swap="innerHTML"
 					>
@@ -109,5 +118,7 @@ templ MainPage() {
 				</div>
 			</div>
 		</div>
+		<!-- 新建项目模态框容器 -->
+		<div id="project-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden"></div>
 	}
 }
